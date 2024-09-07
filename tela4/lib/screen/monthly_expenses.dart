@@ -5,301 +5,324 @@ class MonthlyExpenses extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const firstHalfDashes = 51; // Defina o valor aqui ou calcule conforme necessário
+    // Obter a largura e altura da tela usando MediaQuery
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: const Color(0xFFD3D3D3),
-      body: Stack(
-        children: [
-          Positioned(
-            top: 20,
-            left: 10,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Monthly',
-                  style: TextStyle(fontSize: 32, color: Colors.black),
-                ),
-                Transform.translate(
-                  offset: const Offset(0, -20),  // Move o texto para cima
-                  child: const Text(
-                    'Expenses',
-                    style: TextStyle(fontSize: 32, color: Colors.black),
+      body: Center(
+        child: Container(
+          width: screenWidth,  // Largura do container
+          height: screenHeight,  // Altura do container
+          color: const Color(0xFFD3D3D3), // Cor de fundo do container
+          child: LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+              final containerWidth = constraints.maxWidth;
+              final containerHeight = constraints.maxHeight;
+
+              const firstHalfDashes = 51;
+
+              return Stack(
+                children: [
+                  Positioned(
+                    top: containerHeight * 0.05,  // 5% da altura do container
+                    left: containerWidth * 0.03,  // 3% da largura do container
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Monthly',
+                          style: TextStyle(
+                              fontSize: containerWidth * 0.1, color: Colors.black),
+                        ),
+                        Transform.translate(
+                          offset: Offset(0, containerHeight * (-0.025)), // Move o texto para cima
+                          child: Text(
+                            'Expenses',
+                            style: TextStyle(
+                                fontSize: containerWidth * 0.1, color: Colors.black),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ),
-          Positioned(
-            top: 120,
-            left: 80,
-            right: 80,
-            child: Stack(
-              alignment: Alignment.center,  // Mantém o conteúdo centralizado no círculo
-              children: [
-                CustomPaint(
-                  size: const Size(250, 250), // Defina o tamanho fixo do círculo aqui
-                  painter: DashedCirclePainter(firstHalfDashes: firstHalfDashes),
-                ),
-                Column(
-                  mainAxisSize: MainAxisSize.min,  // Faz com que a coluna ocupe o mínimo de espaço necessário
-                  children: [
-                    Transform.translate(
-                      offset: const Offset(0, 20),  // Move o texto para cima
-                      child: const Text(
-                        'Food',
-                        style: TextStyle(fontSize: 14, color: Colors.black),
-                      ),
-                    ),
-                    Transform.translate(
-                      offset: const Offset(0, 5),  // Move o texto para cima
-                      child: const Text(
-                      '$firstHalfDashes%',
-                      style: TextStyle(fontSize: 48, color: Colors.black),
-                      ),
-                    ),
-                    Transform.translate(
-                      offset: const Offset(0, -10),  // Move o texto para cima
-                      child: const Text(
-                      '-\$5,923.50',
-                      style: TextStyle(fontSize: 14, color: Colors.black),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          Positioned(
-            bottom: 50,
-            left: 5,
-            right: 5,
-            child: Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    height: 240,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFF5F5F5),
-                      borderRadius: BorderRadius.circular(15.0),                     
-                    ),
+                  Positioned(
+                    top: containerHeight * 0.12,  // 10% da altura do container
+                    left: containerWidth * 0.1,   // 10% da largura do container
+                    right: containerWidth * 0.1,  // 10% da largura do container
                     child: Stack(
+                      alignment: Alignment.center,  // Mantém o conteúdo centralizado no círculo
                       children: [
-                        Positioned(
-                          top: 5,
-                          left: 5,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                'Service',
-                                style: TextStyle(fontSize: 20, color: Colors.black),
-                              ),
-                              Transform.translate(
-                                offset: const Offset(0, -10),  // Move o texto para cima
-                                child: const Text(
-                                  'Costs',
-                                  style: TextStyle(fontSize: 20, color: Colors.black),
-                                ),
-                              ),
-                            ],
-                          ),
+                        CustomPaint(
+                          size: Size(containerWidth * 0.75, containerWidth),  // 75% da largura do container para o círculo
+                          painter: DashedCirclePainter(firstHalfDashes: firstHalfDashes, screenWidth: screenWidth, screenHeight: screenHeight),
                         ),
-                        Positioned(
-                          bottom: 60,
-                          left: 0,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Transform.scale(
-                                scaleY: 0.4,
-                                child: const Text(
-                                  '_',
-                                  style: TextStyle(fontSize: 110, color: Color(0xFFD3D3D3)),
-                                ),
+                        Column(
+                          mainAxisSize: MainAxisSize.min,  // Faz com que a coluna ocupe o mínimo de espaço necessário
+                          children: [
+                            Transform.translate(
+                              offset: Offset(0, containerHeight * (0.01)),  // Move o texto para cima
+                              child: Text(
+                                'Food',
+                                style: TextStyle(fontSize: containerWidth * 0.03, color: Colors.black),
                               ),
-                              Transform.translate(
-                                offset: const Offset(0, -20),  // Move o texto para o lado
-                                child: Transform.scale(
-                                  scaleY: 0.4,
-                                  child: const Text(
-                                    '_',
-                                    style: TextStyle(fontSize: 110, color: Color(0xFFD3D3D3)),
-                                  ),
-                                ),
+                            ),
+                            Transform.translate(
+                              offset: const Offset(0, 0),  // Não move
+                              child: Text(
+                                '$firstHalfDashes%',
+                                style: TextStyle(fontSize: containerWidth * 0.1, color: Colors.black),
                               ),
-                              Transform.translate(
-                                offset: const Offset(0, -50),  // Move o texto para o lado
-                                child: Transform.scale(
-                                  scaleY: 0.4,
-                                  child: const Text(
-                                    '_',
-                                    style: TextStyle(fontSize: 110, color: Colors.black),
-                                  ),
-                                ),
+                            ),
+                            Transform.translate(
+                              offset: Offset(0, containerHeight * (-0.01)),  // Move o texto para cima
+                              child: Text(
+                                '-\$5,923.50',
+                                style: TextStyle(fontSize: containerWidth * 0.03, color: Colors.black),
                               ),
-                              Transform.translate(
-                                offset: const Offset(0, -20),  // Move o texto para o lado
-                                child: Transform.scale(
-                                  scaleY: 0.4,
-                                  child: const Text(
-                                    '_',
-                                    style: TextStyle(fontSize: 110, color: Color(0xFFD3D3D3)),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                        Positioned(
-                          bottom: 5,
-                          left: 5,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                '32%',
-                                style: TextStyle(fontSize: 40, color: Colors.black),
-                              ),
-                              Transform.translate(
-                                offset: const Offset(0, -5),  // Move o texto para cima
-                                child: const Text(
-                                  '-\$3,283.20',
-                                  style: TextStyle(fontSize: 12, color: Colors.black),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ]
-                    )
-                  )
-                ),
-                const SizedBox(width: 5), // Espaço entre os containers
-                Expanded(
-                  child: Container(
-                    height: 240,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFBEBEBE),
-                      borderRadius: BorderRadius.circular(15.0),
+                      ],
                     ),
-                    child: Stack(
+                  ),
+                  Positioned(
+                    bottom: containerHeight * 0.07,  // 7% da altura do container
+                    left: containerWidth * 0.03,     // 3% da largura do container
+                    right: containerWidth * 0.03,    // 3% da largura do container
+                    child: Row(
                       children: [
-                        Positioned(
-                          top: 5,
-                          left: 5,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                'Tech',
-                                style: TextStyle(fontSize: 20, color: Colors.black),
-                              ),
-                              Transform.translate(
-                                offset: const Offset(0, -10),  // Move o texto para cima
-                                child: const Text(
-                                  'Costs',
-                                  style: TextStyle(fontSize: 20, color: Colors.black),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Positioned(
-                          bottom: 15,
-                          left: 0,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Transform.scale(
-                                scaleY: 0.4,
-                                child: const Text(
-                                  '_',
-                                  style: TextStyle(fontSize: 110, color: Color(0xFFD3D3D3)),
-                                ),
-                              ),
-                              Transform.translate(
-                                offset: const Offset(0, -20),  // Move o texto para o lado
-                                child: Transform.scale(
-                                  scaleY: 0.4,
-                                  child: const Text(
-                                    '_',
-                                    style: TextStyle(fontSize: 110, color: Color(0xFFD3D3D3)),
+                        Expanded(
+                          child: Container(
+                            height: containerHeight * 0.3,  // 30% da altura do container
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFF5F5F5),
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            child: Stack(
+                              children: [
+                                Positioned(
+                                  top: containerHeight * 0.005,  // 0.5% da altura do container
+                                  left: containerWidth * 0.02,   // 2% da largura do container
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Service',
+                                        style: TextStyle(
+                                            fontSize: containerWidth * 0.05,
+                                            color: Colors.black),
+                                      ),
+                                      Transform.translate(
+                                        offset: Offset(
+                                            0, containerHeight * (-0.01)), // Move o texto para cima
+                                        child: Text(
+                                          'Costs',
+                                          style: TextStyle(
+                                              fontSize: containerWidth * 0.05,
+                                              color: Colors.black),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ),
-                              Transform.translate(
-                                offset: const Offset(0, -30),  // Move o texto para o lado
-                                child: Transform.scale(
-                                  scaleY: 0.4,
-                                  child: const Text(
-                                    '_',
-                                    style: TextStyle(fontSize: 110, color: Colors.black),
+                                Positioned(
+                                  bottom: containerHeight * 0.1,  // 10% da altura do container
+                                  left: 0,
+                                  child: Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: List.generate(4, (index) {
+                                      // Definindo as cores para cada índice
+                                      final colors = [
+                                        const Color(0xFFD3D3D3),
+                                        const Color(0xFFD3D3D3),
+                                        Colors.black,
+                                        const Color(0xFFD3D3D3),
+                                      ];
+
+                                      // Definindo os offsets para cada índice
+                                      final offsets = [
+                                        0.0, // Para o primeiro '_'
+                                        -0.025, // Para o segundo '_'
+                                        -0.06, // Para o terceiro '_'
+                                        -0.025, // Para o quarto '_'
+                                      ];
+
+                                      return Transform.translate(
+                                        offset: Offset(0, containerHeight * offsets[index]),
+                                        child: Transform.scale(
+                                          scaleY: 0.4,
+                                          child: Text(
+                                            '_',
+                                            style: TextStyle(
+                                                fontSize: containerWidth * 0.2,
+                                                color: colors[index]),
+                                          ),
+                                        ),
+                                      );
+                                    }),
                                   ),
                                 ),
-                              ),
-                              Transform.translate(
-                                offset: const Offset(0, -10),  // Move o texto para o lado
-                                child: Transform.scale(
-                                  scaleY: 0.4,
-                                  child: const Text(
-                                    '_',
-                                    style: TextStyle(fontSize: 110, color: Color(0xFFD3D3D3)),
+                                Positioned(
+                                  bottom: containerHeight * 0.005,  // 1% da altura do container
+                                  left: containerWidth * 0.02,     // 2% da largura do container
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        '32%',
+                                        style: TextStyle(
+                                            fontSize: containerWidth * 0.1,
+                                            color: Colors.black),
+                                      ),
+                                      Transform.translate(
+                                        offset: Offset(
+                                            0, containerHeight * (-0.01)), // Move o texto para cima
+                                        child: Text(
+                                          '-\$3,283.20',
+                                          style: TextStyle(
+                                              fontSize: containerWidth * 0.03,
+                                              color: Colors.black),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
-                        Positioned(
-                          bottom: 5,
-                          left: 5,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                '10%',
-                                style: TextStyle(fontSize: 40, color: Colors.black),
-                              ),
-                              Transform.translate(
-                                offset: const Offset(0, -5),  // Move o texto para cima
-                                child: const Text(
-                                  '-\$916.80',
-                                  style: TextStyle(fontSize: 12, color: Colors.black),
+                        SizedBox(width: containerWidth * 0.01), // Espaço entre os containers
+                        Expanded(
+                          child: Container(
+                            height: containerHeight * 0.3,  // 30% da altura do container
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFBEBEBE),
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            child: Stack(
+                              children: [
+                                Positioned(
+                                  top: containerHeight * 0.005,  // 1% da altura do container
+                                  left: containerWidth * 0.02,  // 2% da largura do container
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Tech',
+                                        style: TextStyle(
+                                            fontSize: containerWidth * 0.05,
+                                            color: Colors.black),
+                                      ),
+                                      Transform.translate(
+                                        offset: Offset(
+                                            0, containerHeight * (-0.01)), // Move o texto para cima
+                                        child: Text(
+                                          'Costs',
+                                          style: TextStyle(
+                                              fontSize: containerWidth * 0.05,
+                                              color: Colors.black),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ],
+                                Positioned(
+                                  bottom: containerHeight * 0.04,  // 10% da altura do container
+                                  left: 0,
+                                  child: Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: List.generate(4, (index) {
+                                      final colors = [
+                                        const Color(0xFFD3D3D3),
+                                        const Color(0xFFD3D3D3),
+                                        Colors.black,
+                                        const Color(0xFFD3D3D3),
+                                      ];
+
+                                      final offsets = [
+                                        0.0, 
+                                        -0.02, 
+                                        -0.03, 
+                                        -0.01, 
+                                      ];
+
+                                      return Transform.translate(
+                                        offset: Offset(0, containerHeight * offsets[index]),
+                                        child: Transform.scale(
+                                          scaleY: 0.4,
+                                          child: Text(
+                                            '_',
+                                            style: TextStyle(
+                                                fontSize: containerWidth * 0.2,
+                                                color: colors[index]),
+                                          ),
+                                        ),
+                                      );
+                                    }),
+                                  ),
+                                ),
+                                Positioned(
+                                  bottom: containerHeight * 0.005,  // 1% da altura do container
+                                  left: containerWidth * 0.02,  // 2% da largura do container
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        '10%',
+                                        style: TextStyle(
+                                            fontSize: containerWidth * 0.1,
+                                            color: Colors.black),
+                                      ),
+                                      Transform.translate(
+                                        offset: Offset(
+                                            0, containerHeight * (-0.01)), // Move o texto para cima
+                                        child: Text(
+                                          '-\$916.80',
+                                          style: TextStyle(
+                                              fontSize: containerWidth * 0.03,
+                                              color: Colors.black),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ]
-                    )
-                  )
-                ),
-              ],
-            )
+                      ],
+                    ),
+                  ),
+                  Positioned(
+                    bottom: containerHeight * 0.025, // ajusta de acordo com a altura da tela
+                    left: containerWidth * 0.05, // ajusta de acordo com a largura da tela
+                    right: containerWidth * 0.05, // ajusta de acordo com a largura da tela
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Text(
+                        'Monthly',
+                        style: TextStyle(
+                          fontSize: containerWidth * 0.05,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    bottom: containerHeight * 0.025, // ajusta de acordo com a altura da tela
+                    left: containerWidth * 0.05, // ajusta de acordo com a largura da tela
+                    child: Icon(
+                      Icons.chevron_left,
+                      size: containerWidth * 0.08, // ajusta o tamanho do ícone
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
+              );
+            },
           ),
-          const Positioned(
-            bottom: 5,
-            left: 0,
-            right: 0,
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Text(
-                'Monthly',
-                style: TextStyle(fontSize: 20, color: Colors.black),
-              ),
-            ),
-          ),
-          const Positioned(
-            bottom: 8,
-            left: 10,
-            child: Icon(
-              Icons.chevron_left,
-              size: 24,
-              color: Colors.black,
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
@@ -307,17 +330,18 @@ class MonthlyExpenses extends StatelessWidget {
 
 class DashedCirclePainter extends CustomPainter {
   final int firstHalfDashes; // Adicione um campo para o valor de firstHalfDashes
+  final double screenWidth;
+  final double screenHeight;
 
-  DashedCirclePainter({required this.firstHalfDashes}); // Receba o valor no construtor
+  DashedCirclePainter({required this.firstHalfDashes, required this.screenWidth, required this.screenHeight}); // Receba o valor no construtor
 
   @override
   void paint(Canvas canvas, Size size) {
     // Centro do círculo
     final center = Offset(size.width / 2, size.height / 2);
-    final radius = size.width / 2;
-    const dashCount = 100; // Quantidade de partes na borda
-    const firstDashWidth = 40.0; // Largura do dash para a primeira metade
-    const secondDashWidth = 30.0; // Largura do dash para a segunda metade
+    const dashCount = 200; // Quantidade de partes na borda
+    var firstDashWidth = screenHeight * 0.05; // Largura do dash para a primeira metade
+    var secondDashWidth = screenHeight * 0.04; // Largura do dash para a segunda metade
 
     // Criação dos objetos Paint com cores diferentes
     final firstDashPaint = Paint()
@@ -332,15 +356,21 @@ class DashedCirclePainter extends CustomPainter {
     final innerCirclePaint = Paint()
       ..color = const Color(0xFFB0B0B0) // Cor cinza claro para as bordas
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 20.0; // Largura da borda do círculo interno
+      ..strokeWidth = screenHeight * 0.02; // Largura da borda do círculo interno
+
+    // Criação do Paint para o círculo interno
+    final innerCirclePaint2 = Paint()
+      ..color = const Color(0xFFF5F5F5) // Cor cinza claro para as bordas
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = screenHeight * 0.02; // Largura da borda do círculo interno
 
     // Ângulo inicial para começar o primeiro segmento no topo do círculo
     const double initialAngle = -3.14159265359 / 2; // -π/2 para o topo
 
     // Dividindo o círculo em 100 partes iguais
     for (int i = 0; i < dashCount; i++) {
-      final dashWidth = i < firstHalfDashes ? firstDashWidth : secondDashWidth;
-      final dashPaint = i < firstHalfDashes ? firstDashPaint : secondDashPaint;
+      final dashWidth = i < firstHalfDashes*2 ? firstDashWidth : secondDashWidth;
+      final dashPaint = i < firstHalfDashes*2 ? firstDashPaint : secondDashPaint;
       dashPaint.strokeWidth = dashWidth;
       // Ângulo inicial e final de cada parte
       final startAngle = initialAngle + (i * 2 * 3.14159265359 / dashCount);
@@ -348,7 +378,7 @@ class DashedCirclePainter extends CustomPainter {
 
       // Desenhando a parte do círculo
       canvas.drawArc(
-        Rect.fromCircle(center: center, radius: radius),
+        Rect.fromCircle(center: center, radius: screenHeight*0.17),
         startAngle,
         endAngle - startAngle,
         false,
@@ -358,7 +388,7 @@ class DashedCirclePainter extends CustomPainter {
 
     // Desenhando o círculo interno dividido em 8 partes
     const int innerDashCount = 8; // Quantidade de partes no círculo interno
-    final double innerRadius = radius * 0.7; // Define um raio menor para o círculo interno
+    final double innerRadius = screenHeight *0.17 * 0.7; // Define um raio menor para o círculo interno
     const double segmentAngle = 2 * 3.14159265359 / innerDashCount; // Ângulo de cada segmento
 
     for (int i = 0; i < innerDashCount; i++) {
@@ -366,8 +396,8 @@ class DashedCirclePainter extends CustomPainter {
       final endAngle = startAngle + 0.05; // Tamanho pequeno para criar a borda
 
       // Definindo a cor do segmento do círculo interno
-      final innerDashPaint = (i < (firstHalfDashes / dashCount * innerDashCount))
-          ? firstDashPaint
+      final innerDashPaint = (i < (firstHalfDashes*2 / dashCount * innerDashCount))
+          ? innerCirclePaint2
           : innerCirclePaint;
 
       // Desenhando o segmento do círculo interno
